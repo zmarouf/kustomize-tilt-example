@@ -1,0 +1,17 @@
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: jaeger-configuration
+  namespace: monitoring
+data:
+  span-storage-type: elasticsearch
+  collector: |
+    es:
+      server-urls: http://local-elasticsearch.monitoring:9200
+    collector:
+      zipkin:
+        http-port: 9411
+  query: |
+    es:
+      server-urls: http://local-elasticsearch.monitoring:9200

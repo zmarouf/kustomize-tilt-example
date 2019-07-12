@@ -1,0 +1,57 @@
+---
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+namePrefix: local-
+commonLabels:
+  app.kubernetes.io/version: 0.0.1
+
+commonAnnotations:
+  note: This IS local.
+
+bases:
+  - ../../base
+
+images:
+  - name: connecteverything/nats-operator
+    newName: connecteverything/nats-operator
+    newTag: 0.6.0
+  - name: docker.elastic.co/beats/filebeat-oss
+    newName: docker.elastic.co/beats/filebeat-oss
+    newTag: 7.2.0
+  - name: docker.io/amazon/aws-alb-ingress-controller
+    newName: docker.io/amazon/aws-alb-ingress-controller
+    newTag: v1.1.2
+  - name: docker.elastic.co/elasticsearch/elasticsearch
+    newName: docker.elastic.co/elasticsearch/elasticsearch
+    newTag: 6.8.1
+  - name: docker.io/jaegertracing/jaeger-agent
+    newName: docker.io/jaegertracing/jaeger-agent
+    newTag: 1.13.1
+  - name: docker.io/jaegertracing/jaeger-collector
+    newName: docker.io/jaegertracing/jaeger-collector
+    newTag: 1.13.1
+  - name: docker.io/jaegertracing/jaeger-query
+    newName: docker.io/jaegertracing/jaeger-query
+    newTag: 1.13.1
+
+patchesStrategicMerge:
+  - patch/jaeger-configmap.yaml
+  - patch/filebeat.yaml
+  - patch/prometheus-configmap.yaml
+
+patchesJson6902:
+  - target:
+      version: v1
+      kind: Namespace
+      name: monitoring
+    path: json/namespace_monitoring.yaml
+  - target:
+      version: v1
+      kind: Namespace
+      name: test
+    path: json/namespace_test.yaml
+  - target:
+      version: v1
+      kind: Namespace
+      name: nats
+    path: json/namespace_nats.yaml

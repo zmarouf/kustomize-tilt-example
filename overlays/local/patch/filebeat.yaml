@@ -1,0 +1,16 @@
+---
+apiVersion: extensions/v1beta1
+kind: DaemonSet
+metadata:
+  name: filebeat
+  namespace: monitoring
+  labels:
+    k8s-app: filebeat
+spec:
+  template:
+    spec:
+      containers:
+        - name: filebeat
+          env:
+            - name: ELASTICSEARCH_HOST
+              value: "local-elasticsearch.monitoring"
