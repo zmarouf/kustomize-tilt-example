@@ -1,5 +1,16 @@
 # Testing Tilt with Kustomize
 
+## How-to
+
+- Make sure you have the local kubernetes context set.
+  - You can check with `kubectl cluster-info`
+  - If you're using Docker for Mac, make sure the Kubernetes checkbox is ticked.
+- Now run `$ tilt up` and you'll be good to go.
+
+## Demo
+
+![](demo.gif)
+
 ## Tilt Information
 
 ```
@@ -21,10 +32,3 @@ Kubernetes
 Thanks for seeing the Tilt Doctor!
 Please send this info along when filing bug reports. 💗
 ```
-## How-to
-
-- Make sure you have the local kubernetes context set.
-  - You can check with `kubectl cluster-info`
-  - If you're using Docker for Mac, make sure the Kubernetes checkbox is ticked.
-- Now run `$ tilt up` and you'll be good to go.
-
